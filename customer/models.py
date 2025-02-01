@@ -8,12 +8,20 @@ class Comment(models.Model):
     star = models.IntegerField()
     image = models.ImageField(upload_to='image/customer')
 
+    class Meta:
+        verbose_name = 'نظر'
+        verbose_name_plural = 'نظرات'
+
     def __str__(self):
         return f'{self.name} - {self.brand}'
 
 
 class Newsletter(models.Model):
     email = models.EmailField(max_length=225)
+
+    class Meta:
+        verbose_name = 'خبرنامه'
+        verbose_name_plural = 'خبرنامه ها'
 
     def __str__(self):
         return self.email
