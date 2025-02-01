@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="site-breadcrumb">
+        <div class="container">
+            <h2 class="breadcrumb-title">تماس با ما</h2>
+            <ul class="breadcrumb-menu">
+                <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
+                <i class="ti-control-backward"></i>
+                <li class="active">تماس با ما</li>
+            </ul>
+        </div>
+        <div class="hero-shape">
+            <img src="{% static 'main/img/shape/03.svg' %}" alt>
+        </div>
+        <div class="hero-right-circles"></div>
+    </div>
+
+    <div class="contact-area py-120">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="row">
+                    <div class="col-lg-8 align-self-center">
+                        <div class="contact-form">
+                            <div class="contact-form-header">
+                                <h2>با ما در تماس باشید</h2>
+                                <p>سؤالی دارید؟ نیاز به مشاوره دارید؟ ما اینجا هستیم! از طریق راه‌های ارتباطی با ما در تماس باشید و بهترین راهکارها را برای رشد کسب‌وکار خود دریافت کنید.</p>
+                            </div>
+                                <form method="post" action="/webex/assets/php/contact.php" id="contact-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" placeholder="اسم شما" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" name="email" placeholder="ایمیل شما" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="subject" placeholder="موضوع" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" cols="30" rows="5" class="form-control" placeholder="پیام خود را بنویسید"></textarea>
+                                </div>
+                                <button type="submit" class="theme-btn">ارسال
+                                    پیام <i class="far fa-paper-plane"></i></button>
+                                <div class="col-md-12 mt-3">
+                                    <div class="form-messege text-success"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="contact-content">
+                            <div class="contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h5>آدرس دفتر</h5>
+                                    <p>ایران - تهران</p>
+                                </div>
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h5>با ما تماس بگیرید</h5>
+                                    <p>789 4565 123 +98</p>
+                                </div>
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h5>به ما ایمیل بزنید</h5>
+                                    <p><a href="" class="__cf_email__">ad@info.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contact-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207344.0754342176!2d51.182844580664835!3d35.707740217686975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e00491ff3dcd9%3A0xf0b3697c567024bc!2sTehran%2C%20Tehran%20Province%2C%20Iran!5e0!3m2!1sen!2s!4v1695223466881!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+{% endblock %}
