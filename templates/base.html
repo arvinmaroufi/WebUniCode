@@ -89,6 +89,11 @@
                                         </button>
                                     </div>
                                 </form>
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <p style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %};">{{ message }}</p>
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
