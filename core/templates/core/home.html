@@ -4,6 +4,12 @@
     WebUniCode Studio
 {% endblock %}
 {% block content %}
+<script>
+  function scrollToSection() {
+    let target = document.getElementById("services");
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+</script>
     <div class="hero-section">
         <div class="hero-single custom-hero-single">
             <div class="container">
@@ -17,7 +23,7 @@
                                 در WebUniCode، ما خلاقیت و فناوری را ترکیب می‌کنیم تا تجربه‌های وب استثنائی بسازیم که کسب‌وکارها را توانمند کرده و تعامل کاربران را افزایش دهد
                             </p>
                             <div class="hero-btn wow animate__animated animate__fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
-                                <a href="#" class="theme-btn">خدمات ما<i class="fa fa-arrow-left"></i></a>
+                                <a onclick="scrollToSection()" class="theme-btn">خدمات ما<i class="fa fa-arrow-left"></i></a>
                             </div>
                         </div>
                     </div>
@@ -112,7 +118,7 @@
                                 <li>پشتیبانی مداوم برای رشد و بهبود کسب‌وکار شما</li>
                             </ul>
                         </div>
-                        <a href="about.html" class="theme-btn mt-4">مشاوره رایگان <i class="fa fa-arrow-left"></i></a>
+                        <a href="{% url 'core:contact' %}" class="theme-btn mt-4">مشاوره رایگان <i class="fa fa-arrow-left"></i></a>
                     </div>
                 </div>
             </div>
@@ -120,7 +126,7 @@
     </div>
 
 
-    <div class="service-area bg py-120">
+    <div id="services" class="service-area bg py-120">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto">
@@ -307,7 +313,7 @@
                             <i class="ti-stats-up"></i>
                         </div>
                         <div>
-                            <span class="counter" data-count="+" data-to="1200" data-speed="3000">1200</span>
+                            <span class="counter" data-count="+" data-to="26" data-speed="3000">26</span>
                             <h6 class="title">+ پروژه های انجام شده
                             </h6>
                         </div>
@@ -319,7 +325,7 @@
                             <i class="ti-timer"></i>
                         </div>
                         <div>
-                            <span class="counter" data-count="+" data-to="500" data-speed="3000">500</span>
+                            <span class="counter" data-count="+" data-to="24" data-speed="3000">24</span>
                             <h6 class="title">+ مشتریان خوشحال و راضی</h6>
                         </div>
                     </div>
@@ -330,7 +336,7 @@
                             <i class="ti-pulse"></i>
                         </div>
                         <div>
-                            <span class="counter" data-count="+" data-to="1500" data-speed="3000">1500</span>
+                            <span class="counter" data-count="+" data-to="15" data-speed="3000">15</span>
                             <h6 class="title">+ کارکنان حرفه‌ای و با تجربه</h6>
                         </div>
                     </div>
@@ -341,7 +347,7 @@
                             <i class="ti-package"></i>
                         </div>
                         <div>
-                            <span class="counter" data-count="+" data-to="50" data-speed="3000">50</span>
+                            <span class="counter" data-count="+" data-to="19" data-speed="3000">19</span>
                             <h6 class="title">+ پشتیبانی کامل</h6>
                         </div>
                     </div>
