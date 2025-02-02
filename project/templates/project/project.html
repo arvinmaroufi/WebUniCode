@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="site-breadcrumb">
+        <div class="container">
+            <h2 class="breadcrumb-title">سینگل پروژه ها</h2>
+            <ul class="breadcrumb-menu">
+                <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
+                <i class="ti-control-backward"></i>
+                <li class="active">سینگل پروژه ها</li>
+            </ul>
+        </div>
+        <div class="hero-shape">
+            <img src="{% static 'main/img/shape/03.svg' %}" alt>
+        </div>
+        <div class="hero-right-circles"></div>
+    </div>
+
+    <div class="project-single-area py-120">
+        <div class="container">
+            <div class="project-single-wrapper">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="project-sidebar">
+                            <div class="widget project-sidebar-content">
+                                <h4 class="project-sidebar-title">جزئیات پروژه</h4>
+                                <ul>
+                                    <li>
+                                        دسته بندی <span>{{ project.category }}</span>
+                                    </li>
+                                    <li>
+                                        تاریخ <span>{{ project.data }}</span>
+                                    </li>
+                                    <li>
+                                        نام مشتری <span>{{ project.name }}</span>
+                                    </li>
+                                    <li>
+                                        بودجه <span>{{ project.budget }}</span>
+                                    </li>
+                                    <li>
+                                        مدیر پروژه <span>{{ project.project_manager }}</span>
+                                    </li>
+                                    <li>
+                                        محل <span>{{ project.place }}</span>
+                                    </li>
+                                    <li>
+                                        <a href="{{ project.website }}">سایت اینترنتی <span>{{ project.website }}</span></a>
+                                    </li>
+                                    <li>
+                                         رتبه بندی
+                                        <div class="rating">
+                                            <a href="#"><i class="fas fa-star"></i></a>
+                                            <a href="#"><i class="fas fa-star"></i></a>
+                                            <a href="#"><i class="fas fa-star"></i></a>
+                                            <a href="#"><i class="fas fa-star"></i></a>
+                                            <a href="#"><i class="fas fa-star"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="widget new-project">
+                                <h4>به یک پروژه کاملاً جدید نیاز دارید؟</h4>
+                                <a href="{% url 'core:contact' %}" class="new-project-btn">اکنون تماس بگیرید <i class="fas fa-arrow-left"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="project-details">
+                            <div class="project-details-img mb-30">
+                                <img src="{% static 'main/img/project/single.jpg' %}" alt="thumb">
+                            </div>
+                            <div class="project-details">
+                                <h3 class="mb-30">{{ project.category }}</h3>
+                                <p class="mb-20">
+                                    {{ project.Text1 }}
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-6 mb-20">
+                                        <img src="{{ project.image1.url }}" height="500" width="500">
+                                    </div>
+                                    <div class="col-md-6 mb-20">
+                                        <img src="{{ project.image2.url }}" height="500" width="500">
+                                    </div>
+                                </div>
+                                <div class="my-4">
+                                    <div class="mb-3">
+                                        <h3 class="mb-3">نکات پروژه</h3>
+                                        <p>
+                                            {{ project.Text2 }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="my-4">
+                                    <h3 class="mb-3">نمای کلی &amp; چالش</h3>
+                                    <p>
+                                        {{ project.Text3 }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

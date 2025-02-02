@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'jalali_date',
     'ckeditor',
+    "project.apps.ProjectConfig"
 ]
 
 MIDDLEWARE = [

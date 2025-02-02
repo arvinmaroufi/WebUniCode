@@ -7,7 +7,7 @@ from customer.models import Comment, Newsletter
 
 class HomeView(View):
     def get(self, request):
-        comment = Comment.objects.all()
+        comment = Comment.objects.filter(publish=True)
         team = Team.objects.last()
         return render(request, 'core/home.html', {'comment': comment, 'team': team})
 
