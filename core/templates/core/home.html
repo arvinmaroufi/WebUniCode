@@ -10,6 +10,31 @@
     target.scrollIntoView({ behavior: "smooth" });
   }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterBtns = document.querySelectorAll('.filter-btns li');
+        const filterBox = document.querySelector('.filter-box');
+
+        // Initialize Isotope
+        const iso = new Isotope(filterBox, {
+            itemSelector: '.filter-item',
+            layoutMode: 'fitRows'
+        });
+
+        // Filter on button click
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const filterValue = this.getAttribute('data-filter');
+                iso.arrange({ filter: filterValue });
+
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to the clicked button
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
 
 <div class="hero-section">
     <div class="hero-single custom-hero-single">
@@ -427,80 +452,32 @@
                 <div class="filter-controls">
                     <ul class="filter-btns">
                         <li class="active" data-filter="*">همه</li>
-                        <li data-filter=".cat1">وب</li>
-                        <li data-filter=".cat2">برنامه</li>
-                        <li data-filter=".cat3">طرح</li>
-                        <li data-filter=".cat4">توسعه</li>
-                        <li data-filter=".cat5">نرم افزار</li>
+                        {% for category in categories %}
+                            <li data-filter=".cat{{ category.id }}">{{ category.title }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
         <div class="row mt-4 filter-box popup-gallery">
-            <div class="col-md-4 filter-item cat1 cat2">
-                <div class="project-item">
-                    <div class="project-img">
-                        <img src="{% static 'main/img/project/01.jpg' %}" alt>
-                    </div>
-                    <div class="project-content">
-                        <a class="popup-img project-link" href="{% static 'main/img/project/01.jpg' %}"><i class="far fa-plus"></i></a>
-                        <div class="project-info">
-                            <h5 class="project-subtitle"><span>//</span> طرح</h5>
-                            <a href="#">
-                                <h4 class="project-title">طراحی وب سایت</h4>
-                            </a>
+            {% for category in categories %}
+                {% for project in category.projects.all %}
+                    <div class="col-md-4 filter-item cat{{ category.id }}">
+                        <div class="project-item">
+                            <div class="project-img">
+                                <img src="{{ project.main_image.url }}" alt="{{ project.title }}">
+                            </div>
+                            <div class="project-content">
+                                <div class="project-info">
+                                    <a href="project/{{ project.slug }}">
+                                        <h4 class="project-title">{{ project.slug }}</h4>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4 filter-item cat2 cat3">
-                <div class="project-item">
-                    <div class="project-img">
-                        <img src="{% static 'main/img/project/02.jpg' %}" alt>
-                    </div>
-                    <div class="project-content">
-                        <a class="popup-img project-link" href="{% static 'main/img/project/02.jpg' %}"><i class="far fa-plus"></i></a>
-                        <div class="project-info">
-                            <h5 class="project-subtitle"><span>//</span> طرح</h5>
-                            <a href="#">
-                                <h4 class="project-title">طراحی وب سایت</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 filter-item cat3 cat4 cat5">
-                <div class="project-item">
-                    <div class="project-img">
-                        <img src="{% static 'main/img/project/03.jpg' %}" alt>
-                    </div>
-                    <div class="project-content">
-                        <a class="popup-img project-link" href="{% static 'main/img/project/03.jpg' %}"><i class="far fa-plus"></i></a>
-                        <div class="project-info">
-                            <h5 class="project-subtitle"><span>//</span> طرح</h5>
-                            <a href="#">
-                                <h4 class="project-title">طراحی وب سایت</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 filter-item cat2 cat4">
-                <div class="project-item">
-                    <div class="project-img">
-                        <img src="{% static 'main/img/project/04.jpg' %}" alt>
-                    </div>
-                    <div class="project-content">
-                        <a class="popup-img project-link" href="{% static 'main/img/project/04.jpg' %}"><i class="far fa-plus"></i></a>
-                        <div class="project-info">
-                            <h5 class="project-subtitle"><span>//</span> طرح</h5>
-                            <a href="#">
-                                <h4 class="project-title">طراحی وب سایت</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -516,7 +493,7 @@
             </div>
         </div>
         <div class="testimonial-slider owl-carousel owl-theme" dir="ltr">
-            {% for customer in comment %}
+            {% for customer in comments %}
                 {% if customer.publish %}
                     <div class="testimonial-single">
                     <div class="testimonial-content">

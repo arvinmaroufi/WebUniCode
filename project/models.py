@@ -15,14 +15,14 @@ class Category(models.Model):
 
 
 class Project(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='projects')
     slug = models.SlugField(max_length=150, unique=True, verbose_name='نامک')
     name = models.CharField(max_length=100, verbose_name='نام مشتری')
     data = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
     budget = models.CharField(max_length=100, verbose_name='بودجه')
     project_manager = models.CharField(max_length=60, verbose_name='مدیر پروژه')
     place = models.CharField(max_length=100, verbose_name='محل')
-    website = models.CharField(max_length=100, verbose_name='وب سایت')
+    website = models.URLField(max_length=200, verbose_name='وب سایت')
     star = models.IntegerField(verbose_name='امتیاز')
     main_image = models.ImageField(upload_to='project', verbose_name='عکس اصلی')
     image1 = models.ImageField(upload_to='project', verbose_name='عکس 1')

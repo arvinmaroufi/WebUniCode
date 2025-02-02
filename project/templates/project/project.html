@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load jalali_tags %}
 {% block content %}
     <div class="site-breadcrumb">
         <div class="container">
@@ -29,7 +30,7 @@
                                         دسته بندی <span>{{ project.category }}</span>
                                     </li>
                                     <li>
-                                        تاریخ <span>{{ project.data }}</span>
+                                        تاریخ <span>{{ project.data|to_jalali:'%Y/%m/%d' }}</span>
                                     </li>
                                     <li>
                                         نام مشتری <span>{{ project.name }}</span>
