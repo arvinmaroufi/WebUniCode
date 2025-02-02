@@ -27,9 +27,9 @@ class Project(models.Model):
     main_image = models.ImageField(upload_to='project', verbose_name='عکس اصلی')
     image1 = models.ImageField(upload_to='project', verbose_name='عکس 1')
     image2 = models.ImageField(upload_to='project', verbose_name='عکس 2')
-    Text1 = models.TextField(verbose_name='متن یک, پاراگراف طراحی')
-    Text2 = models.TextField(verbose_name='متن دو, پاراگراف نکات')
-    Text3 = models.TextField(verbose_name='متن یک, پاراگراف نمای کلی چالش')
+    Text1 = models.TextField(verbose_name='متن یک, توضیحات')
+    Text2 = models.TextField(verbose_name='متن دو, نکات پروژه')
+    Text3 = models.TextField(verbose_name='متن سوم, نمای کلی و چالش ها')
 
     class Meta:
         verbose_name = 'پروژه'
