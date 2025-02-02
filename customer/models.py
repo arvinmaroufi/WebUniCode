@@ -7,6 +7,7 @@ class Comment(models.Model):
     body = models.TextField(max_length=100)
     star = models.IntegerField()
     image = models.ImageField(upload_to='image/customer')
+    publish = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'نظر'

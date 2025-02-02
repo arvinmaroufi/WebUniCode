@@ -3,13 +3,15 @@ from django.shortcuts import render
 from django.views import View
 from .models import Team
 from customer.models import Comment, Newsletter
+from project.models import Category
 
 
 class HomeView(View):
     def get(self, request):
-        comment = Comment.objects.all()
+        comments = Comment.objects.filter(publish=True)
         team = Team.objects.last()
-        return render(request, 'core/home.html', {'comment': comment, 'team': team})
+        categories = Category.objects.prefetch_related('projects').all()
+        return render(request, 'core/home.html', {'comments': comments, 'team': team, 'categories': categories})
 
     def post(self, request):
         email = request.POST.get('email')
