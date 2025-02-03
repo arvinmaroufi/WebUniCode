@@ -1,9 +1,9 @@
+from .models import Team
+from django.views import View
+from project.models import Category
 from django.contrib import messages
 from django.shortcuts import render
-from django.views import View
-from .models import Team
 from customer.models import Comment, Newsletter
-from project.models import Category
 
 
 class HomeView(View):

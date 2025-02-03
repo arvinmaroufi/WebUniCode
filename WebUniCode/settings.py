@@ -23,11 +23,12 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "customer.apps.CustomerConfig",
     "blog.apps.BlogConfig",
+    "project.apps.ProjectConfig",
     #Install_App
     'django_cleanup.apps.CleanupConfig',
     'jalali_date',
     'ckeditor',
-    "project.apps.ProjectConfig",
+
 ]
 
 MIDDLEWARE = [
