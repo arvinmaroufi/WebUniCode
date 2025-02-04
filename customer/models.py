@@ -2,12 +2,12 @@ from django.db import models
 
 
 class Comment(models.Model):
-    name = models.CharField(max_length=50)
-    brand = models.CharField(max_length=50)
-    body = models.TextField(max_length=100)
-    star = models.IntegerField()
-    image = models.ImageField(upload_to='image/customer')
-    publish = models.BooleanField(default=False)
+    name = models.CharField(max_length=50, verbose_name='نام')
+    brand = models.CharField(max_length=50, verbose_name='برند')
+    body = models.TextField(max_length=100, verbose_name='متن')
+    star = models.IntegerField(verbose_name='امتیاز')
+    image = models.ImageField(upload_to='image/customer', verbose_name='عکس')
+    publish = models.BooleanField(default=False, verbose_name='مجوز قرار دادن')
 
     class Meta:
         verbose_name = 'نظر'
@@ -18,7 +18,7 @@ class Comment(models.Model):
 
 
 class Newsletter(models.Model):
-    email = models.EmailField(max_length=225)
+    email = models.EmailField(max_length=225, verbose_name='ایمیل')
 
     class Meta:
         verbose_name = 'خبرنامه'

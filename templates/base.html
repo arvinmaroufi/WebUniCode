@@ -44,9 +44,9 @@
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">تماس با ما</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'core:faq' %}" >سوالات متداول</a></li>
-                        <li class="nav-item dropdown"><a class="nav-link" href="{% url 'core:blog' %}" >وبلاگ</a></li>
+                        <li class="nav-item dropdown"><a class="nav-link" href="{% url 'blog:article_list' %}" >وبلاگ</a></li>
                     </ul>
-                    
+
                 </div>
             </div>
         </nav>
@@ -96,10 +96,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="footer-widget-box about-us">
                         <p class="mb-3">
-                            ارتقای کسب‌وکار شما با راهکارهای نوین دیجیتال!
-ما در کنار شما هستیم تا با ارائه خدمات حرفه‌ای طراحی وب، سئو، بازاریابی دیجیتال و توسعه وب، کسب‌وکار شما را در دنیای آنلاین به سطحی بالاتر برسانیم. هدف ما ارائه راهکارهای خلاقانه، مقرون‌به‌صرفه و پایدار برای رشد شماست.
-
- با ما در تماس باشید و قدمی مطمئن به‌سوی موفقیت دیجیتال بردارید! 🚀
+                            {{ site_settings.about_us_text }}
                         </p>
                     </div>
                 </div>
@@ -109,7 +106,7 @@
                         <ul class="footer-list">
                             <li><a href="{% url 'core:faq' %}">سوالات متداول</a></li>
                             <li><a href="{% url 'core:contact' %}">تماس با ما</a></li>
-                            <li><a href="{% url 'core:blog' %}">وبلاگ</a></li>
+                            <li><a href="{% url 'blog:article_list' %}">وبلاگ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -134,21 +131,21 @@
                                 <i class="fas fa-phone"></i>
                                 <a>
                                     <h6>تلفن</h6>
-                                    <p>+98 123 654 7898</p>
+                                    <p>{{ site_settings.phone }}</p>
                                 </a>
                             </li>
                             <li>
                                 <i class="fas fa-map-marker-alt"></i>
                                 <a>
                                     <h6>نشانی</h6>
-                                    <p>ایران - تهران</p>
+                                    <p>{{ site_settings.address }}</p>
                                 </a>
                             </li>
                             <li>
                                 <i class="fas fa-envelope"></i>
                                 <a>
                                     <h6>پست الکترونیک</h6>
-                                    <p><span class="__cf_email__"></span>ad@info.com</p>
+                                    <p><span class="__cf_email__"></span>{{ site_settings.email }}</p>
                                 </a>
                             </li>
                         </ul>

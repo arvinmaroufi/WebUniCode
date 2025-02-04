@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load jalali_tags %}
 {% block title %}
     WebUniCode Studio
 {% endblock %}
@@ -530,80 +531,41 @@
         <div class="row">
             <div class="col-lg-6 mx-auto">
                 <div class="site-heading text-center">
-                    <h2 class="site-title">آخرین <span>وبلاگ های ما</span></h2>
+                    <h2 class="site-title">آخرین <span>مقالات های ما</span></h2>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-lg-4">
-                <div class="blog-item">
-                    <div class="blog-item-img">
-                        <img src="{% static 'main/img/blog/01.jpg' %}" alt="Thumb">
-                    </div>
-                    <div class="blog-item-info">
-                        <h4 class="blog-title">
-                            <a href="#">تنوع زیادی از رنج های موجود وجود دارد</a>
-                        </h4>
-                        <div class="blog-item-meta">
-                            <ul>
-                                <li><a href="#"><i class="far fa-user-circle"></i> نوشته آلیشیا دیویس</a></li>
-                                <li><a href="#"><i class="far fa-calendar-alt"></i> 12 شهریور 1402</a></li>
-                            </ul>
+            {% for article in articles %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="blog-item">
+                        <div class="blog-item-img">
+                            {% if article.thumbnail %}
+                                <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
+                            {% else %}
+                                <img src="{% static "main/img/blog/image_not_available.jpg" %}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
+                            {% endif %}
                         </div>
-                        <p>
-                            انواع مختلفی از معابر در دسترس است، اما اکثر آنها
-                            به نوعی دچار تغییر شده اند.
-                        </p>
-                        <a class="theme-btn" href="#">ادامه مطلب<i class="fa fa-arrow-left"></i></a>
+                        <div class="blog-item-info">
+                            <h4 class="blog-title">
+                                <a href="{{ article.get_absolute_url }}">{{ article.title|truncatewords:6 }}</a>
+                            </h4>
+                            <div class="blog-item-meta">
+                                <ul>
+                                    {% if article.author %}
+                                        <li><i class="far fa-user-circle"></i>{{ article.author.first_name }} {{ article.author.last_name }}</li>
+                                    {% else %}
+                                        <li><i class="far fa-user-circle"></i>نامعلوم</li>
+                                    {% endif %}
+                                    <li><i class="far fa-calendar-alt"></i>{{ article.created_at|to_jalali:'%d %B %Y' }}</li>
+                                </ul>
+                            </div>
+                            <p>{{ article.description|truncatewords:10|safe }}</p>
+                            <a class="theme-btn" href="{{ article.get_absolute_url }}">ادامه مطلب<i class="fas fa-arrow-left"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="blog-item">
-                    <div class="blog-item-img">
-                        <img src="{% static 'main/img/blog/02.jpg' %}" alt="Thumb">
-                    </div>
-                    <div class="blog-item-info">
-                        <h4 class="blog-title">
-                            <a href="#">تنوع زیادی از رنج های موجود وجود دارد</a>
-                        </h4>
-                        <div class="blog-item-meta">
-                            <ul>
-                                <li><a href="#"><i class="far fa-user-circle"></i> نوشته آلیشیا دیویس</a></li>
-                                <li><a href="#"><i class="far fa-calendar-alt"></i> 12 شهریور 1402</a></li>
-                            </ul>
-                        </div>
-                        <p>
-                            انواع مختلفی از معابر در دسترس است، اما اکثر آنها
-                            به نوعی دچار تغییر شده اند.
-                        </p>
-                        <a class="theme-btn" href="#">ادامه مطلب<i class="fa fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="blog-item">
-                    <div class="blog-item-img">
-                        <img src="{% static 'main/img/blog/03.jpg' %}" alt="Thumb">
-                    </div>
-                    <div class="blog-item-info">
-                        <h4 class="blog-title">
-                            <a href="#">تنوع زیادی از رنج های موجود وجود دارد</a>
-                        </h4>
-                        <div class="blog-item-meta">
-                            <ul>
-                                <li><a href="#"><i class="far fa-user-circle"></i> نوشته آلیشیا دیویس</a></li>
-                                <li><a href="#"><i class="far fa-calendar-alt"></i> 12 شهریور 1402</a></li>
-                            </ul>
-                        </div>
-                        <p>
-                            انواع مختلفی از معابر در دسترس است، اما اکثر آنها
-                            به نوعی دچار تغییر شده اند.
-                        </p>
-                        <a class="theme-btn" href="#">ادامه مطلب<i class="fa fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -619,7 +581,7 @@
             </div>
             <div class="col-lg-5 text-center text-lg-start">
                 <div class="mb-20">
-                    <a href="#" class="cta-border-btn"><i class="fas fa-headset"></i>+2 123 654 7898</a>
+                    <a href="#" class="cta-border-btn"><i class="fas fa-headset"></i>{{ site_settings.phone }}</a>
                 </div>
                 <div>
                     <a href="{% url 'core:contact' %}" class="theme-btn">اکنون تماس بگیرید<i class="fa fa-arrow-left"></i></a>

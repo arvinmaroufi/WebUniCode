@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
+{% block title %}تماس با ما{% endblock %}
 {% load static %}
-{% block title %}
-	contact us
-{% endblock %}
 {% block content %}
 
     <div class="site-breadcrumb">
@@ -28,9 +26,10 @@
                         <div class="contact-form">
                             <div class="contact-form-header">
                                 <h2>با ما در تماس باشید</h2>
-                                <p>سؤالی دارید؟ نیاز به مشاوره دارید؟ ما اینجا هستیم! از طریق راه‌های ارتباطی با ما در تماس باشید و بهترین راهکارها را برای رشد کسب‌وکار خود دریافت کنید.</p>
+                                <p>{{ site_settings.contact_us_text }}</p>
                             </div>
-                                <form method="post" action="/webex/assets/php/contact.php" id="contact-form">
+                                <form method="post" id="contact-form">
+                                    {% csrf_token %}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -65,7 +64,7 @@
                                 </div>
                                 <div class="contact-info-content">
                                     <h5>آدرس دفتر</h5>
-                                    <p>ایران - تهران</p>
+                                    <p>{{ site_settings.address }}</p>
                                 </div>
                             </div>
                             <div class="contact-info">
@@ -74,7 +73,9 @@
                                 </div>
                                 <div class="contact-info-content">
                                     <h5>با ما تماس بگیرید</h5>
-                                    <p>789 4565 123 +98</p>
+                                    <a href="tel:{{ site_settings.phone }}">
+                                        <p>{{ site_settings.phone }}</p>
+                                    </a>
                                 </div>
                             </div>
                             <div class="contact-info">
@@ -83,7 +84,7 @@
                                 </div>
                                 <div class="contact-info-content">
                                     <h5>به ما ایمیل بزنید</h5>
-                                    <p><a href="" class="__cf_email__">ad@info.com</a></p>
+                                    <p><a href="mailto:{{ site_settings.email }}" class="__cf_email__">{{ site_settings.email }}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -91,8 +92,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="contact-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207344.0754342176!2d51.182844580664835!3d35.707740217686975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e00491ff3dcd9%3A0xf0b3697c567024bc!2sTehran%2C%20Tehran%20Province%2C%20Iran!5e0!3m2!1sen!2s!4v1695223466881!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 {% endblock %}

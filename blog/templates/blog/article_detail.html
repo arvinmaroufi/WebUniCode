@@ -18,7 +18,7 @@
         </ul>
     </div>
         <div class="hero-shape">
-        <img src="assets/img/shape/03.svg" alt>
+        <img src="{% static "main/img/shape/03.svg" %}" alt>
     </div>
     <div class="hero-right-circles"></div>
 </div>
@@ -31,9 +31,9 @@
                     <div class="blog-single-content">
                         <div class="blog-thumb-img">
                             {% if article.thumbnail %}
-                                <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}">
+                                <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}" id="single-blog-image">
                             {% else %}
-                                <img src="{% static "main/img/blog/image_not_available.jpg" %}" alt="{{ article.title|truncatewords:6 }}">
+                                <img src="{% static "main/img/blog/image_not_available.jpg" %}" alt="{{ article.title|truncatewords:6 }}" id="single-blog-image">
                             {% endif %}
                         </div>
                         <div class="blog-info">
@@ -45,8 +45,6 @@
                                         {% else %}
                                             <li><i class="far fa-user"></i>نامعلوم</li>
                                         {% endif %}
-                                        <li><i class="far fa-comments"></i>3.2k نظر</li>
-                                        <li><i class="far fa-thumbs-up"></i>1.4k پسندیده</li>
                                     </ul>
                                 </div>
                                 <div class="blog-meta-right">
@@ -94,61 +92,6 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="blog-comments">
-                            <h3>نظرات (20)</h3>
-                            <div class="blog-comments-wrapper">
-                                <div class="blog-comments-single">
-                                    <img src="assets/img/blog/com-1.jpg" alt="thumb">
-                                    <div class="blog-comments-content">
-                                        <h5>جسی اسلید</h5>
-                                        <span><i class="far fa-clock"></i> 28 شهریور 1320</span>
-                                        <p>Tدر اینجا انواع مختلفی از متن ها وجود دارد که اکثریت آنها در برخی از طنزهای تزریقی یا کلمات تصادفی دچار شده اند که حتی اندکی هم باورپذیر به نظر نمی رسند.</p>
-                                        <a href="#"><i class="fas fa-reply"></i> پاسخ</a>
-                                    </div>
-                                </div>
-                                <div class="blog-comments-single blog-comments-reply">
-                                    <img src="assets/img/blog/com-2.jpg" alt="thumb">
-                                    <div class="blog-comments-content">
-                                        <h5>دنیل روسی</h5>
-                                        <span><i class="far fa-clock"></i> 28 شهریور 1320</span>
-                                        <p>انواع مختلفی از قسمت‌ها وجود دارد که اکثریت آنها در برخی از طنز تزریقی یا کلمات تصادفی متحمل شده‌اند که حتی اندکی هم باورپذیر به نظر نمی‌رسند.</p>
-                                        <a href="#"><i class="fas fa-reply"></i> پاسخ</a>
-                                    </div>
-                                </div>
-                                <div class="blog-comments-single">
-                                    <img src="assets/img/blog/com-3.jpg" alt="thumb">
-                                    <div class="blog-comments-content">
-                                        <h5>کاوانی روحین</h5>
-                                        <span><i class="far fa-clock"></i> 28 شهریور 1320</span>
-                                        <p>انواع مختلفی از قسمت‌ها وجود دارد که اکثریت آنها در برخی از طنز تزریقی یا کلمات تصادفی متحمل شده‌اند که حتی اندکی هم باورپذیر به نظر نمی‌رسند.</p>
-                                        <a href="#"><i class="fas fa-reply"></i> پاسخ</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="blog-comments-form">
-                                <h3>پیام بگذارید</h3>
-                                <form action="#">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="نام شما*">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="ایمیل*">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="5" placeholder="پیام بگذارید*"></textarea>
-                                            </div>
-                                            <button type="submit" class="theme-btn">پیام بگذارید <i class="far fa-paper-plane"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -156,10 +99,21 @@
                 <aside class="sidebar">
 
                     <div class="widget search">
-                        <h5 class="widget-title">جستجو کردن</h5>
-                        <form class="search-form">
-                            <input type="text" class="form-control" placeholder="جستجو کنید...">
-                            <button type="submit"><i class="fas fa-search"></i></button>
+                        <h5 class="widget-title">جستجوی مقاله</h5>
+                        <form action="{% url 'blog:search' %}" method="get" role="search" class="">
+                            <label  class="search-blog-form">
+                                <input type="search" class="grow" id="search-input" name="search" placeholder="جستجو کنید..." required>
+                                <button class="active" id="search-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search hide-it" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                    </svg>
+                                </button>
+                                <button class="" id="search-remove">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
+                                        <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
+                                    </svg>
+                                </button>
+                            </label>
                         </form>
                     </div>
 
