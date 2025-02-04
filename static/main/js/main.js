@@ -198,9 +198,16 @@ Version         : 1.1
 
 
 
+const search_input = document.querySelector('div');
+const search_button = document.getElementById('search-button');
+const search_remove = document.querySelector('#search-remove');
 
-
-
-
-
-
+search_input.addEventListener("change",()=>{
+    if(search_input.value){
+        search.classList.remove("active");
+        remove_search.classList.add("active");
+    }else{
+        search.classList.add("active");
+        remove_search.classList.remove("active");
+    }
+});

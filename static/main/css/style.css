@@ -165,6 +165,58 @@ img {
     height: auto;
 }
 
+
+@media (max-width: 768px) {
+    #blog-img {
+        width: 100%;
+        object-fit: cover;
+        height: 330px;
+    }
+    #single-blog-image{
+        width: 516px;
+        object-fit: cover;
+        height: 344px;
+    }
+}
+@media (min-width: 768px) {
+    #blog-img {
+        width: 100%;
+        object-fit: cover;
+        height: 210px;
+    }
+    #single-blog-image{
+        width: 696px;
+        object-fit: cover;
+        height: 464px;
+    }
+}
+
+@media (min-width: 992px) {
+    #blog-img {
+        width: 100%;
+        object-fit: cover;
+        height: 184px;
+    }
+    #single-blog-image{
+        width: 615px;
+        object-fit: cover;
+        height: 410px;
+    }
+}
+@media (min-width: 1200px) {
+    #blog-img {
+        width: 100%;
+        object-fit: cover;
+        height: 236px;
+    }
+    #single-blog-image{
+        width: 766px;
+        object-fit: cover;
+        height: 510px;
+    }
+}
+
+
 label {
     color: #999;
     cursor: pointer;
@@ -2543,7 +2595,6 @@ project css
     top: 15px;
     left: 15px;
     bottom: 15px;
-    background: #4565ff;
     border-radius: 8px;
     opacity: 0;
     visibility: hidden;
@@ -3141,6 +3192,71 @@ sidebar css
     border-radius: 7px;
     box-shadow: none;
 }
+
+
+
+
+
+.search-blog-form{
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid gray;
+    padding-right: 20px;
+    padding-top: 4px;
+}
+
+
+.search-blog-form:focus{
+    outline: 0;
+}
+
+.search-blog-form button:focus{
+    outline: 0;
+}
+
+.search-blog-form input:focus{
+    outline: 0;
+}
+.search-blog-form input{
+    border: 0;
+}
+
+.search-blog-form button{
+    border: 0;
+    outline:0;
+    background:none;
+
+}
+.search-blog-form button svg{
+    margin-top:5px;
+    width:24px;
+    height:23px;
+    fill:blue;
+}
+
+.search-blog-form button.active{
+    transform: scale(1);
+    opacity:1;
+    transition-duration: 2s;
+}
+.search-blog-form button:not(.active){
+    transform: rotate(90deg) scale(0);
+    opacity:0;
+    transition-duration: 2s;
+
+}
+
+.grow{
+    width:88.5% 91% 94.5% 96%;
+}
+
+.single-blog-grow{
+    width: 80%;
+}
+
+
+
 
 .widget .search-form {
     position: relative;
@@ -4611,7 +4727,7 @@ home 3
 }
 
 /* ======================
-themify icon 
+themify icon
 ====================== */
 .ti-control-backward::before {
     color: #fff;
@@ -4619,4 +4735,3 @@ themify icon
     top: 8px;
     margin: 0 2px;
 }
-

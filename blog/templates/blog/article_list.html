@@ -27,42 +27,53 @@
                 <div class="col-lg-6 mx-auto">
                     <div class="site-heading text-center">
                         <span class="site-title-tagline">وبلاگ ما</span>
-                        {% comment %} <h2 class="site-title">آخرین خبرها & <span>وبلاگ</span></h2> {% endcomment %}
                     </div>
                 </div>
             </div>
             <div class="row">
 
-                {% for article in articles %}
-                    <div class="col-md-6 col-lg-4">
-                        <div class="blog-item">
-                            <div class="blog-item-img">
-                                {% if article.thumbnail %}
-                                    <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}">
-                                {% else %}
-                                    <img src="{% static "main/img/blog/image_not_available.jpg" %}" alt="{{ article.title|truncatewords:6 }}">
-                                {% endif %}
-                            </div>
-                            <div class="blog-item-info">
-                                <h4 class="blog-title">
-                                    <a href="{{ article.get_absolute_url }}">{{ article.title|truncatewords:6 }}</a>
-                                </h4>
-                                <div class="blog-item-meta">
-                                    <ul>
-                                        {% if article.author %}
-                                            <li><i class="far fa-user-circle"></i>{{ article.author.first_name }} {{ article.author.last_name }}</li>
-                                        {% else %}
-                                            <li><i class="far fa-user-circle"></i>نامعلوم</li>
-                                        {% endif %}
-                                        <li><i class="far fa-calendar-alt"></i>{{ article.created_at|to_jalali:'%d %B %Y' }}</li>
-                                    </ul>
+                <div class="widget search">
+                    <h5 class="widget-title">جستجوی مقاله</h5>
+                    <form action="{% url 'blog:search' %}" method="get" role="search" class="search-form" >
+                        <input type="search" class="form-control" name="search" placeholder="جستجو کنید..." required>
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                {% if articles %}
+                    {% for article in articles %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="blog-item">
+                                <div class="blog-item-img">
+                                    {% if article.thumbnail %}
+                                        <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
+                                    {% else %}
+                                        <img src="{% static "main/img/blog/image_not_available.jpg" %}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
+                                    {% endif %}
                                 </div>
-                                <p>{{ article.description|truncatewords:10|safe }}</p>
-                                <a class="theme-btn" href="{{ article.get_absolute_url }}">ادامه مطلب<i class="fas fa-arrow-left"></i></a>
+                                <div class="blog-item-info">
+                                    <h4 class="blog-title">
+                                        <a href="{{ article.get_absolute_url }}">{{ article.title|truncatewords:6 }}</a>
+                                    </h4>
+                                    <div class="blog-item-meta">
+                                        <ul>
+                                            {% if article.author %}
+                                                <li><i class="far fa-user-circle"></i>{{ article.author.first_name }} {{ article.author.last_name }}</li>
+                                            {% else %}
+                                                <li><i class="far fa-user-circle"></i>نامعلوم</li>
+                                            {% endif %}
+                                            <li><i class="far fa-calendar-alt"></i>{{ article.created_at|to_jalali:'%d %B %Y' }}</li>
+                                        </ul>
+                                    </div>
+                                    <p>{{ article.description|truncatewords:10|safe }}</p>
+                                    <a class="theme-btn" href="{{ article.get_absolute_url }}">ادامه مطلب<i class="fas fa-arrow-left"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <h2 style="text-align:center;">مقاله ای وجود ندارد</h2>
+                {% endif %}
                 
             </div>
         </div>
