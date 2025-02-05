@@ -48,7 +48,10 @@
                                     </ul>
                                 </div>
                                 <div class="blog-meta-right">
-                                    <a href="#" class="share-btn"><i class="fas fa-share-alt"></i>اشتراک گذاری</a>
+                                    <a href="javascript:void(0);" id="copyBtn" class="share-btn">
+                                        <i class="fas fa-share-alt"></i>کپی کردن لینک
+                                    </a>
+                                    <p id="copyMsg" class="copy-message">✅ لینک کپی شد!</p>
                                 </div>
                             </div>
                             <div class="blog-details">
@@ -146,15 +149,6 @@
                         {% endfor %}
                         
                     </div>
-
-                    <div class="widget social-share">
-                        <h5 class="widget-title">ما را دنبال کنید</h5>
-                        <div class="social-share-link">
-                            <a href="https://instagram.com/webunicode"><i class="fab fa-instagram"></i></a>
-                            <a href="https://t.me/webunicode"><i class="fab fa-telegram"></i></a>
-                        </div>
-                    </div>
-
                     <div class="widget sidebar-tag">
                         <h5 class="widget-title">برچسب های محبوب</h5>
                         <div class="tag-list">
@@ -169,4 +163,30 @@
     </div>
 </div>
 
+<script>
+// اطمینان از پنهان بودن پیام در بارگذاری صفحه
+document.addEventListener("DOMContentLoaded", function() {
+    const copyMsg = document.getElementById("copyMsg");
+    copyMsg.style.display = "none";
+});
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+    try {
+        await navigator.clipboard.writeText(window.location.href);
+        const copyMsg = document.getElementById("copyMsg");
+        copyMsg.style.display = "block";
+        setTimeout(() => {
+            copyMsg.style.opacity = "1";
+        }, 10);
+        setTimeout(() => {
+            copyMsg.style.opacity = "0";
+            setTimeout(() => {
+                copyMsg.style.display = "none";
+            }, 500);
+        }, 3000);
+    } catch (err) {
+        console.error("خطا در کپی کردن لینک:", err);
+    }
+});
+</script>
 {% endblock %}
