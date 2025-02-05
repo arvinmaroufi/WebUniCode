@@ -29,6 +29,7 @@ class Project(models.Model):
     Text1 = models.TextField(verbose_name='متن یک, توضیحات')
     Text2 = models.TextField(verbose_name='متن دو, نکات پروژه')
     Text3 = models.TextField(verbose_name='متن سوم, نمای کلی و چالش ها')
+    publish = models.BooleanField(default=False, verbose_name='مجوز انشتار')
 
     class Meta:
         verbose_name = 'پروژه'
