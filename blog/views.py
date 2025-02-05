@@ -1,14 +1,43 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Tag, Article, Profile
 from core.models import SiteSettings
+from django.http import JsonResponse
+from django.template.defaultfilters import truncatewords
 
 
 def article_list(request):
-    articles = Article.objects.filter(status='published')
     site_settings = SiteSettings.objects.first()
+    page = int(request.GET.get('page', 1))
+    per_page = 6
+    start = (page - 1) * per_page
+    end = start + per_page
+
+    articles = Article.objects.filter(status='published').order_by('-created_at')
+    total_count = articles.count()
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        articles_page = articles[start:end]
+        data = []
+        for article in articles_page:
+            truncated_description = truncatewords(article.description, 20)
+            data.append({
+                'title': article.title,
+                'description': truncated_description,
+                'thumbnail_url': article.thumbnail.url if article.thumbnail else '',
+                'url': article.get_absolute_url(),
+                'created_at': article.created_at.strftime('%Y-%m-%d')
+            })
+        return JsonResponse({
+            'articles': data,
+            'has_more': total_count > end
+        })
+
+    articles_page = articles[start:end]
+    
     context = {
-        'articles': articles,
-        'site_settings': site_settings
+        'site_settings': site_settings,
+        'articles': articles_page,
+        'has_more': total_count > end
     }
     return render(request, 'blog/article_list.html', context)
 

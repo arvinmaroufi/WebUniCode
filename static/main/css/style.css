@@ -2796,6 +2796,10 @@ blog css
 }
 
 .blog-item-img img {
+    width: 100%; /* پهنای 100% */
+    height: auto; /* ارتفاع خودکار */
+    max-height: 200px; /* حداکثر ارتفاع */
+    object-fit: cover; /* حفظ نسبت ابعادی عکس */
     border-radius: 8px;
 }
 
