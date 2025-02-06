@@ -3,7 +3,6 @@
 {% load static %}
 {% load jalali_tags %}
 
-
 {% block content %}
 
     <div class="site-breadcrumb">
@@ -40,43 +39,120 @@
                     </form>
                 </div>
 
-                {% if articles %}
-                    {% for article in articles %}
-                        <div class="col-md-6 col-lg-4">
-                            <div class="blog-item">
-                                <div class="blog-item-img">
-                                    {% if article.thumbnail %}
-                                        <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
-                                    {% else %}
-                                        <img src="{% static "main/img/blog/image_not_available.jpg" %}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
-                                    {% endif %}
-                                </div>
-                                <div class="blog-item-info">
-                                    <h4 class="blog-title">
-                                        <a href="{{ article.get_absolute_url }}">{{ article.title|truncatewords:6 }}</a>
-                                    </h4>
-                                    <div class="blog-item-meta">
-                                        <ul>
-                                            {% if article.author %}
-                                                <li><i class="far fa-user-circle"></i>{{ article.author.first_name }} {{ article.author.last_name }}</li>
-                                            {% else %}
-                                                <li><i class="far fa-user-circle"></i>نامعلوم</li>
-                                            {% endif %}
-                                            <li><i class="far fa-calendar-alt"></i>{{ article.created_at|to_jalali:'%d %B %Y' }}</li>
-                                        </ul>
+                <div class="row">
+                    <div id="articles-container" class="col-lg-12">
+                        {% if articles %}
+                            <div class="row">
+                                {% for article in articles %}
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="blog-item">
+                                            <div class="blog-item-img">
+                                                {% if article.thumbnail %}
+                                                    <img src="{{ article.thumbnail.url }}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
+                                                {% else %}
+                                                    <img src="{% static "main/img/blog/image_not_available.jpg" %}" alt="{{ article.title|truncatewords:6 }}" id="blog-img">
+                                                {% endif %}
+                                            </div>
+                                            <div class="blog-item-info">
+                                                <h4 class="blog-title">
+                                                    <a href="{{ article.get_absolute_url }}">{{ article.title|truncatewords:6 }}</a>
+                                                </h4>
+                                                <div class="blog-item-meta">
+                                                    <ul>
+                                                        {% if article.author %}
+                                                            <li><i class="far fa-user-circle"></i>{{ article.author.first_name }} {{ article.author.last_name }}</li>
+                                                        {% else %}
+                                                            <li><i class="far fa-user-circle"></i>نامعلوم</li>
+                                                        {% endif %}
+                                                        <li><i class="far fa-calendar-alt"></i>{{ article.created_at|to_jalali:'%d %B %Y' }}</li>
+                                                    </ul>
+                                                </div>
+                                                <p>{{ article.description|truncatewords:10|safe }}</p>
+                                                <a class="theme-btn" href="{{ article.get_absolute_url }}">ادامه مطلب<i class="fas fa-arrow-left"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p>{{ article.description|truncatewords:10|safe }}</p>
-                                    <a class="theme-btn" href="{{ article.get_absolute_url }}">ادامه مطلب<i class="fas fa-arrow-left"></i></a>
-                                </div>
+                                {% endfor %}
                             </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <h2 style="text-align:center;">مقاله ای وجود ندارد</h2>
-                {% endif %}
+                        {% else %}
+                            <h2 style="text-align:center;">مقاله ای وجود ندارد</h2>
+                        {% endif %}
+                    </div>
                 
+                    <!-- Start Load More btn -->
+                    {% if has_more %}
+                        <div class="load-more-btn mt-50 text-center col-lg-12">
+                            <button class="theme-btn" id="load-more-btn">مشاهده بیشتر</button>
+                        </div>
+                    {% endif %}
+                    <!-- End Load More btn -->
+                
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentPage = 1;
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            const articlesContainer = document.getElementById('articles-container');
+        
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    currentPage++;
+        
+                    fetch(`?page=${currentPage}`, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.articles && data.articles.length > 0) {
+                            const newRow = document.createElement('div');
+                            newRow.className = 'row'; // ایجاد div جدید با کلاس row
+        
+                            data.articles.forEach(article => {
+                                const thumbnailUrl = article.thumbnail_url || '/static/main/img/blog/image_not_available.jpg'; // تصویر پیش‌فرض درصورت عدم وجود عکس
+                                
+                                const articleHtml = `
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="blog-item">
+                                            <div class="blog-item-img">
+                                                <img src="${thumbnailUrl}" alt="${article.title}" class="img-fluid"> <!-- استفاده از کلاس برای تنظیم ابعاد -->
+                                            </div>
+                                            <div class="blog-item-info">
+                                                <h4 class="blog-title">
+                                                    <a href="${article.url}">${article.title}</a>
+                                                </h4>
+                                                <div class="blog-item-meta">
+                                                    <ul>
+                                                        <li><i class="far fa-calendar-alt"></i>${article.created_at}</li>
+                                                    </ul>
+                                                </div>
+                                                <p>${article.description}</p>
+                                                <a class="theme-btn" href="${article.url}">ادامه مطلب<i class="fas fa-arrow-left"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                newRow.insertAdjacentHTML('beforeend', articleHtml);
+                            });
+        
+                            articlesContainer.appendChild(newRow); // اضافه کردن newRow به articlesContainer
+        
+                            if (!data.has_more) {
+                                loadMoreBtn.style.display = 'none';
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            }
+        });
+    </script>
 
 {% endblock %}
