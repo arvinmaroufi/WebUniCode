@@ -70,37 +70,8 @@
                             </div>
                             <br>
                             <br>
-                            <div class="project-details">
-                                <h3 class="mb-30">راجب پروژه</h3>
-                                <p class="mb-20">
-                                    {{ project.Text1 }}
-                                </p>
-                                <br>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6 mb-20">
-                                        <img src="{{ project.image1.url }}" height="400" width="400">
-                                    </div>
-                                    <div class="col-md-6 mb-20">
-                                        <img src="{{ project.image2.url }}" height="400" width="400">
-                                    </div>
-                                </div>
-                                <div class="my-4">
-                                    <div class="mb-3">
-                                        <h3 class="mb-3">نکات پروژه</h3>
-                                        <p>
-                                            {{ project.Text2 }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="my-4">
-                                    <h3 class="mb-3">نمای کلی و چالش ها</h3>
-                                    <p>
-                                        {{ project.Text3 }}
-                                    </p>
-                                </div>
-                            </div>
                         </div>
+                            {{ project.description|safe }}
                     </div>
                 </div>
             </div>
