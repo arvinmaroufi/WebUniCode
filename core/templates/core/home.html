@@ -7,8 +7,30 @@
 {% block content %}
 <script>
   function scrollToSection() {
-    let target = document.getElementById("services");
-    target.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById("services");
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = 2000;
+    let startTime = null;
+    function animation(currentTime) {
+      if (startTime === null) {
+        startTime = currentTime;
+      }
+      const timeElapsed = currentTime - startTime;
+      const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    }
+    function easeInOutQuad(t, b, c, d) {
+      t /= d/2;
+      if (t < 1) return c/2*t*t + b;
+      t--;
+      return -c/2 * (t*(t-2) - 1) + b;
+    }
+    requestAnimationFrame(animation);
   }
 </script>
 <script>
@@ -47,7 +69,7 @@
                             توانمندسازی کسب و کار دیجیتال شما
                         </h1>
                         <p class="wow animate__animated animate__fadeInUp" data-wow-duration="1s" data-wow-delay=".75s">
-                            در WebUniCode، ما خلاقیت و فناوری را ترکیب می‌کنیم تا تجربه‌های وب استثنائی بسازیم که کسب‌وکارها را توانمند کرده و تعامل کاربران را افزایش دهد
+                            در WebUniCode، ما فناوری را با خلاقیت تلفیق می‌کنیم تا تجربه‌هایی خلق کنیم که کسب‌وکارها را تقویت و تعامل کاربران را به سطحی نوین برساند. هدف ما ارائه راهکارهای نوآورانه است تا برندها بتوانند در فضای رقابتی بدرخشند و ارتباطی عمیق با مخاطبان خود برقرار کنند.
                         </p>
                         <div class="hero-btn wow animate__animated animate__fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
                             <a onclick="scrollToSection()" class="theme-btn">خدمات ما<i class="fa fa-arrow-left"></i></a>
@@ -168,14 +190,12 @@
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">
-                            <a href="#">طراحی وب سایت</a>
+                            <a>طراحی وب سایت</a>
                         </h3>
                         <p class="service-text">
                             ایجاد وب‌سایت‌های مدرن، خلاقانه و کاربرپسند متناسب با نیازهای شما
                         </p>
-                        <div class="service-arrow">
-                            <a href="#">ادامه مطلب <i class="fa fa-arrow-left"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -186,14 +206,12 @@
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">
-                            <a href="#">نوشتن محتوا</a>
+                            <a>نوشتن محتوا</a>
                         </h3>
                         <p class="service-text">
                             تولید محتوای جذاب و تأثیرگذار برای افزایش تعامل کاربران
                         </p>
-                        <div class="service-arrow">
-                            <a href="#">ادامه مطلب <i class="fa fa-arrow-left"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -204,14 +222,12 @@
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">
-                            <a href="#">توسعه وب</a>
+                            <a>توسعه وب</a>
                         </h3>
                         <p class="service-text">
                             کدنویسی و پیاده‌سازی وب‌سایت‌های حرفه‌ای با عملکرد بالا
                         </p>
-                        <div class="service-arrow">
-                            <a href="#"> ادامه مطلب <i class="fa fa-arrow-left"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -222,14 +238,12 @@
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">
-                            <a href="#">بهینه سازی سئو</a>
+                            <a>بهینه سازی سئو</a>
                         </h3>
                         <p class="service-text">
                             افزایش رتبه سایت شما در موتورهای جستجو و جذب مخاطب بیشتر
                         </p>
-                        <div class="service-arrow">
-                            <a href="#">ادامه مطلب <i class="fa fa-arrow-left"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -240,14 +254,12 @@
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">
-                            <a href="#">برنامه تحت وب</a>
+                            <a>برنامه تحت وب</a>
                         </h3>
                         <p class="service-text">
                             توسعه اپلیکیشن‌های تحت وب با جدیدترین فناوری‌ها
                         </p>
-                        <div class="service-arrow">
-                            <a href="#">ادامه مطلب  <i class="fa fa-arrow-left"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -258,14 +270,11 @@
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">
-                            <a href="#">مشاوره وب</a>
+                            <a>مشاوره وب</a>
                         </h3>
                         <p class="service-text">
                             راهنمایی تخصصی برای رشد و بهینه‌سازی حضور آنلاین شما
                         </p>
-                        <div class="service-arrow">
-                            <a href="#">ادامه مطلب <i class="fa fa-arrow-left"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -295,6 +304,7 @@
                             ما با ترکیبی از تخصص، خلاقیت و تجربه، آماده‌ایم تا کسب‌وکار شما را به سطح بالاتری برسانیم. خدمات ما شامل:
                         </p>
                         <div class="skill-wrapper">
+<<<<<<< HEAD
                             <div class="skill-box">
                                 <div class="skill-title">
                                     <h5>
@@ -305,6 +315,14 @@
                                     <p>
                                          طراحی صفحات وب متناسب با هدف های کسب و کارها
                                     </p>
+=======
+                            <div class="skill-progress-item">
+                                <h5 class="skill-tag">طراحی وب سایت</h5>
+                                <div class="skill-box">
+                                    <div class="progress-line" data-width="80">
+                                        <span class="skill-percentage">80%</span>
+                                    </div>
+>>>>>>> 02d9fd277c2cc6b47d05deecefce767f557616cd
                                 </div>
                             </div>
                             <div class="skill-box">
@@ -455,7 +473,8 @@
     </div>
 </div>
 
-<div class="project-area py-120">
+{% if project %}
+    <div class="project-area py-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 mx-auto">
@@ -494,6 +513,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 {% if comments %}
     <div class="testimonial-area py-120">
@@ -538,7 +558,8 @@
 </div>
 {% endif %}
 
-<div class="blog-area bg py-120">
+{% if articles %}
+    <div class="blog-area bg py-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto">
@@ -581,6 +602,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <div class="cta-area pt-80 pb-80">
     <div class="container">

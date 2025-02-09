@@ -1,9 +1,11 @@
+from django.db.models import Prefetch
+
 from .models import Team
 from django.views import View
 from blog.models import Article
 from .forms import ContactUsForm
 from .models import SiteSettings
-from project.models import Category
+from project.models import Category, Project
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from customer.models import Comment, Newsletter
@@ -15,13 +17,15 @@ class HomeView(View):
         team = Team.objects.last()
         site_settings = SiteSettings.objects.first()
         articles = Article.objects.filter(status='published').order_by('-created_at')[:3]
-        categories = Category.objects.prefetch_related('projects').all()
+        categories = Category.objects.prefetch_related(Prefetch('projects', queryset=Project.objects.filter(publish=True))).all()
+        project = Project.objects.filter(publish=True)
         context = {
             'comments': comments,
             'team': team,
             'categories': categories,
             'site_settings': site_settings,
-            'articles': articles
+            'articles': articles,
+            'project': project,
         }
         return render(request, 'core/home.html', context)
 
